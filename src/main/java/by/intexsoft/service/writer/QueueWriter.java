@@ -2,11 +2,11 @@ package by.intexsoft.service.writer;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
 import by.intexsoft.document.BuilderSampleDoc;
 
-@Controller
+@Component
 public class QueueWriter {
 
 	@Autowired
@@ -15,7 +15,8 @@ public class QueueWriter {
 	@Autowired
 	BuilderSampleDoc sampleDoc;
 
-	private void writeMessage() {
+	public void writeMessage() {
+		System.out.println("write message");
 		template.convertAndSend("message", sampleDoc.builder());
 	}
 }
