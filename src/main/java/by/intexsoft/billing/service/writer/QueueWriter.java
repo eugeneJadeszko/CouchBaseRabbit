@@ -1,5 +1,6 @@
-package by.intexsoft.service.writer;
+package by.intexsoft.billing.service.writer;
 
+import by.intexsoft.billing.service.builder.CallerBuilder;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,10 +14,9 @@ public class QueueWriter {
 	RabbitTemplate template;
 	
 	@Autowired
-	BuilderSampleDoc sampleDoc;
+	CallerBuilder sampleDoc;
 
 	public void writeMessage() {
-		System.out.println("write message");
 		template.convertAndSend("message", sampleDoc.builder());
 	}
 }
