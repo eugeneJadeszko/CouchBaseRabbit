@@ -5,6 +5,7 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource(value={"classpath:application.properties"})
+@PropertySource(value="classpath:application.properties")
 public class RabbitMqConfig {
 
 	@Value("${rabbitmq.host}")
@@ -82,5 +83,12 @@ public class RabbitMqConfig {
 	@Bean
 	public Binding binding() {
 		return BindingBuilder.bind(Queue1()).to(directExchange()).with(routingKey);
+	}
+
+	@Bean(name="rabbitListenerContainerFactory")
+	public SimpleRabbitListenerContainerFactory listenerFactory(){
+		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+		factory.setConnectionFactory(connectionFactory());
+		return factory;
 	}
 }

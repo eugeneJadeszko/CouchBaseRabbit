@@ -14,7 +14,6 @@ import java.io.IOException;
 @Component
 public class QueueListenerImpl {
 
-    @Autowired
     ObjectMapper mapper;
 
     @Autowired
