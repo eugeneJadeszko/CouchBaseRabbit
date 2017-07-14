@@ -14,6 +14,7 @@ public class QueueWriter {
 	CallerBuilder callerBuilder;
 
 	public void writeMessage() {
-		template.convertAndSend("message", callerBuilder.builder());
+		System.out.println("11111");
+		template.convertAndSend("message", "{\"id\":\"1\",\"type\":\"0\",\"firstName\":\"A\",\"secondName\":\"B\",\"age\":\"22\"}");
 	}
 }
