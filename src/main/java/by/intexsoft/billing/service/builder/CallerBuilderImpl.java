@@ -19,9 +19,9 @@ public class CallerBuilderImpl implements CallerBuilder {
      *
      * @return unique Caller JSON string
      */
-    public String builder() {
+    public Caller builder() {
         counter++;
-        return convertDocToJson(new Caller(counter, randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter));
+        return new Caller(counter, randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter);
     }
 
     /**

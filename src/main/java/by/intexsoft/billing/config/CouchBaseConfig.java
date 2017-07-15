@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 
-@EnableCouchbaseRepositories(basePackages = "by.intexsoft.billing.repository")
+@EnableCouchbaseRepositories(basePackages = {"by.intexsoft.billing.repository"})
 @PropertySource(value = "classpath:application.properties")
 @Configuration
 public class CouchBaseConfig extends AbstractCouchbaseConfiguration {
@@ -37,5 +37,4 @@ public class CouchBaseConfig extends AbstractCouchbaseConfiguration {
 	protected String getBucketPassword() {
 		return bucketPassword;
 	}
-
 }

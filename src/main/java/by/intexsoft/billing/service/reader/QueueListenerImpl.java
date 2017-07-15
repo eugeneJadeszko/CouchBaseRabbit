@@ -14,8 +14,6 @@ import java.io.IOException;
 @Component
 public class QueueListenerImpl {
 
-    ObjectMapper mapper;
-
     @Autowired
     CouchbaseRepository couchbaseRepository;
 
