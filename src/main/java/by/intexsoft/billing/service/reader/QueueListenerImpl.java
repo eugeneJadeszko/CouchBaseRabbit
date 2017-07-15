@@ -15,9 +15,6 @@ import java.io.IOException;
 public class QueueListenerImpl {
 
     @Autowired
-    ObjectMapper mapper;
-
-    @Autowired
     CouchbaseRepository couchbaseRepository;
 
     @RabbitListener(queues = "queue")

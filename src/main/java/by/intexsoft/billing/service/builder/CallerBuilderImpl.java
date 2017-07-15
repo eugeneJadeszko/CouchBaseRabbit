@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Random;
 
 /**
- * This class will build Caller with unique fields.
+ * This class will build Caller object with unique fields.
  */
 public class CallerBuilderImpl implements CallerBuilder {
 
@@ -19,11 +19,10 @@ public class CallerBuilderImpl implements CallerBuilder {
      *
      * @return unique Caller JSON string
      */
-    public String builder() {
+    public Caller builder() {
         counter++;
-        return convertDocToJson(new Caller(counter, randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter));
+        return new Caller(counter, randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter);
     }
-
 
     /**
      * Convert Caller object into JSON string
