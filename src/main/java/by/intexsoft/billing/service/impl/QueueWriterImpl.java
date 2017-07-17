@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("queueWriter")
 public class QueueWriterImpl implements QueueWriter {
 
-	private final 	RabbitTemplate template;
+	private final RabbitTemplate template;
 	private SubscriberBuilder subscriberBuilder;
 
 	@Autowired
