@@ -1,6 +1,6 @@
 package by.intexsoft.billing.config;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
 import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
 
-@EnableCouchbaseRepositories(basePackages = {"by.intexsoft.billing.repository"})
+@EnableCouchbaseRepositories(basePackages = "by.intexsoft.billing.repository")
 @PropertySource(value = "classpath:application.properties")
 @Configuration
 public class CouchBaseConfig extends AbstractCouchbaseConfiguration {
@@ -25,7 +25,7 @@ public class CouchBaseConfig extends AbstractCouchbaseConfiguration {
 
 	@Override
 	protected List<String> getBootstrapHosts() {
-		return Arrays.asList(hostName);
+		return Collections.singletonList(hostName);
 	}
 
 	@Override
