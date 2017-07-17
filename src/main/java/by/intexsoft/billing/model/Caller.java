@@ -11,16 +11,6 @@ import org.springframework.data.couchbase.core.mapping.Document;
 @Document(expiry = 0)
 public class Caller {
 
-    public void Caller() {}
-
-    public Caller(int id, String type, String firstName, String secondName, int age) {
-        this.id = id;
-        this.type = type;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.age = age;
-    }
-
     @Id
     public int id;
 
@@ -35,4 +25,14 @@ public class Caller {
 
     @Field
     public int age;
+
+    public void Caller() {}
+
+    public Caller(int id, String type, String firstName, String secondName, int age) {
+        this.id = id;
+        this.type = type;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.age = age;
+    }
 }
