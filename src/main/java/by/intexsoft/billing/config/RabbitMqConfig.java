@@ -22,7 +22,7 @@ public class RabbitMqConfig {
 	@Value("${rabbitmq.host}")
 	private String hostName;
 
-	@Value("${rabbitmq.exchange}")
+	@Value("${rabbitmq.exchange:test}")
 	private String exchange;
 
 	@Value("${rabbitmq.queue}")
@@ -38,8 +38,7 @@ public class RabbitMqConfig {
 	 */
 	@Bean
 	public ConnectionFactory connectionFactory() {
-		CachingConnectionFactory connectionFactory = new CachingConnectionFactory(hostName);
-		return connectionFactory;
+		return new CachingConnectionFactory(hostName);
 	}
 
 	@Bean
