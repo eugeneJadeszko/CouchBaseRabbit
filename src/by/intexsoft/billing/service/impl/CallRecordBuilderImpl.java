@@ -2,12 +2,14 @@ package by.intexsoft.billing.service.impl;
 
 import by.intexsoft.billing.model.CallRecord;
 import by.intexsoft.billing.service.CallRecordBuilder;
+import org.springframework.stereotype.Service;
 
 import java.util.Random;
 
 /**
  * This class will build CallRecord object with unique fields
  */
+@Service
 public class CallRecordBuilderImpl implements CallRecordBuilder {
 
     private static int counter = 1;
