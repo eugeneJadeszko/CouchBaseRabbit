@@ -25,7 +25,7 @@ public class QueueListenerImpl implements QueueListener {
 
     @RabbitListener(queues = "queue")
     public void processQueue(String messageFromQueue) {
-        convertJsonToObjectAndSave(messageFromQueue);
+        convertAndSave(messageFromQueue);
     }
 
     /**
@@ -33,21 +33,20 @@ public class QueueListenerImpl implements QueueListener {
      *
      * @param messageFromQueue input JSON string from RabbitMQ queue
      */
-    private void convertJsonToObjectAndSave(String messageFromQueue) {
+    private void convertAndSave(String messageFromQueue) {
         try {
-            Subscriber subscriber = mapper.readValue(messageFromQueue, Subscriber.class);
-            saveInBucket(subscriber);
+            save(mapper.readValue(messageFromQueue, Subscriber.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Save model in Couchbase bucket using "save" method from (WHICH?) repository
+     * Save model in Couchbase bucket using "save" method from repository
      *
      * @param subscriber Document to write in Couchbase bucket
      */
-    private void saveInBucket(Subscriber subscriber) {
+    private void save(Subscriber subscriber) {
         couchBaseWriter.write(subscriber);
     }
 }
