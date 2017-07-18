@@ -28,13 +28,17 @@ public class Subscriber {
     @Field
     public int age;
 
+    @Field
+    public CallRecord callRecord;
+
     public Subscriber(){}
 
-    public Subscriber(int id, String type, String firstName, String secondName, int age) {
+    public Subscriber(int id, String type, String firstName, String secondName, int age, CallRecord callRecord) {
         this.id = id;
         this.type = type;
         this.firstName = firstName;
         this.secondName = secondName;
         this.age = age;
+        this.callRecord = callRecord;
     }
 }
