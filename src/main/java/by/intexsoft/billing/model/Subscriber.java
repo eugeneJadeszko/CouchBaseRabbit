@@ -7,31 +7,31 @@ import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
 
 /**
- * This class describes model which we will write in couchbase.
- * "Expiry = 0" means that model will live in couchbase indefinitely.
+ * Class describes model which we will write in couchbase.
  */
 @Document
 public class Subscriber {
 
     @Id
     @GeneratedValue(strategy = GenerationStrategy.UNIQUE)
-    private int id;
+    public int id;
 
     @Field
-    private String type;
+    public String type;
 
     @Field
-    private String firstName;
+    public String firstName;
 
     @Field
-    private String secondName;
+    public String secondName;
 
     @Field
-    private int age;
+    public int age;
 
     public Subscriber(){}
 
-    public Subscriber( String type, String firstName, String secondName, int age) {
+    public Subscriber(int id, String type, String firstName, String secondName, int age) {
+        this.id = id;
         this.type = type;
         this.firstName = firstName;
         this.secondName = secondName;

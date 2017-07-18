@@ -6,6 +6,9 @@ import by.intexsoft.billing.service.CouchBaseWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * This class is for writing models in Couchbase buckets
+ */
 @Service
 public class CouchBaseWriterImpl implements CouchBaseWriter {
 
@@ -16,7 +19,12 @@ public class CouchBaseWriterImpl implements CouchBaseWriter {
         this.couchbaseRepository = couchbaseRepository;
     }
 
-    public void writeInBucket(Subscriber subscriber) {
+    /**
+     * Write input argument model in Couchbase bucket
+     *
+     * @param subscriber model object
+     */
+    public void write(Subscriber subscriber) {
         couchbaseRepository.save(subscriber);
     }
 }
