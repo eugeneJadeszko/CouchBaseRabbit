@@ -12,7 +12,7 @@ import java.util.Random;
 @Service
 public class SubscriberBuilderImpl implements SubscriberBuilder {
 
-    private static int counter = 0;
+    private static int counter = 5;
     private String randomType = String.valueOf(new Random().nextInt(2));
 
     /**
@@ -22,6 +22,6 @@ public class SubscriberBuilderImpl implements SubscriberBuilder {
      */
     public Subscriber build() {
         counter++;
-        return new Subscriber(randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter);
+        return new Subscriber(counter, randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter);
     }
 }

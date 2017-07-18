@@ -2,20 +2,20 @@ package by.intexsoft.billing.service.impl;
 
 import by.intexsoft.billing.model.Subscriber;
 import by.intexsoft.billing.service.CouchBaseWriter;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import by.intexsoft.billing.service.QueueListener;
+import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @EnableRabbit
 @Service
-public class QueueListenerImpl {
-    private final ObjectMapper mapper;
+public class QueueListenerImpl implements QueueListener {
     private final CouchBaseWriter couchBaseWriter;
+    private final ObjectMapper mapper;
 
     @Autowired
     public QueueListenerImpl(CouchBaseWriter couchBaseWriter) {
@@ -24,8 +24,8 @@ public class QueueListenerImpl {
     }
 
     @RabbitListener(queues = "queue")
-    private void processQueue(String messageFromQueue) {
-        convertJsonToObject(messageFromQueue);
+    public void processQueue(String messageFromQueue) {
+        convertJsonToObjectAndSave(messageFromQueue);
     }
 
     /**
@@ -33,10 +33,10 @@ public class QueueListenerImpl {
      *
      * @param messageFromQueue input JSON string from RabbitMQ queue
      */
-    private void convertJsonToObject(String messageFromQueue) {
+    private void convertJsonToObjectAndSave(String messageFromQueue) {
         try {
             Subscriber subscriber = mapper.readValue(messageFromQueue, Subscriber.class);
-            saveDocumentInCouchbaseBucket(subscriber);
+            saveInBucket(subscriber);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class QueueListenerImpl {
      *
      * @param subscriber Document to write in Couchbase bucket
      */
-    private void saveDocumentInCouchbaseBucket(Subscriber subscriber) {
-        couchBaseWriter.writeInBucket(subscriber);
+    private void saveInBucket(Subscriber subscriber) {
+        couchBaseWriter.write(subscriber);
     }
 }

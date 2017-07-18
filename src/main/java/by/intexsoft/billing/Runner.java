@@ -6,10 +6,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Runner
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
         ApplicationContext context = new AnnotationConfigApplicationContext("by.intexsoft.billing.config");
         QueueWriter queueWriter = (QueueWriter) context.getBean("queueWriter");
-        queueWriter.writeMessage();
+
+        for (int i = 0; i < 5; i++) {
+            queueWriter.writeMessage();
+        }
     }
 }
