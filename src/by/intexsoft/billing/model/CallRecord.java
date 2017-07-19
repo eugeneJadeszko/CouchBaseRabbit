@@ -10,12 +10,21 @@ import org.springframework.data.couchbase.core.mapping.Document;
 @Document
 public class CallRecord {
 
+    /**
+     * Unique {@link CallRecord#id} for {@link CallRecord} object
+     */
     @Id
     public int id;
 
+    /**
+     * Call {@link CallRecord#duration} time which stored if milliseconds
+     */
     @Field
     public int duration;
 
+    /**
+     * Call {@link CallRecord#type}. {@link CallRecord#type} can be "true" or "false". If "true" -- local call, else -- regional
+     */
     @Field
     public boolean type;
 
@@ -26,9 +35,9 @@ public class CallRecord {
 
     /**
      * Constructor for {@link CallRecord}. Creates instance of {@link CallRecord} with unique fields initialized with input parameters
-     * @param id unique id
-     * @param duration unique call duration set in milliseconds
-     * @param type unique call type. {@link CallRecord#type} can be "true" or "false". If "true" -- local call, else -- regional
+     * @param id unique {@link CallRecord#id}
+     * @param duration unique call {@link CallRecord#duration} set in milliseconds
+     * @param type call {@link CallRecord#type}. {@link CallRecord#type} can be "true" or "false". If "true" -- local call, else -- regional
      */
     public CallRecord(int id, int duration, boolean type) {
         this.id = id;
