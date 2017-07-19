@@ -15,7 +15,6 @@ import java.util.Random;
 public class SubscriberBuilderImpl implements SubscriberBuilder {
 
     private static int counter = 5;
-    private String randomType = String.valueOf(new Random().nextInt(2));
     private CallRecordBuilder callRecordBuilder = new CallRecordBuilderImpl();
 
     @Autowired
@@ -24,12 +23,12 @@ public class SubscriberBuilderImpl implements SubscriberBuilder {
     }
 
     /**
-     * Build unique Subscriber JSON string
+     * Build unique Subscriber object
      *
-     * @return unique Subscriber JSON string
+     * @return unique Subscriber object
      */
     public Subscriber build() {
         counter++;
-        return new Subscriber(counter, randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter, callRecordBuilder.build());
+        return new Subscriber(counter, "Ivan" + counter, "Ivanov" + counter, 4 + counter, callRecordBuilder.build());
     }
 }

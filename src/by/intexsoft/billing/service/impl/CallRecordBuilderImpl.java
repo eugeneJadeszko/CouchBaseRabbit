@@ -17,9 +17,9 @@ public class CallRecordBuilderImpl implements CallRecordBuilder {
     private boolean type = new Random().nextBoolean();
 
     /**
-     * Build unique CallRecord JSON string
+     * Build unique CallRecord object
      *
-     * @return unique CallRecord JSON string
+     * @return unique CallRecord object
      */
     public CallRecord build() {
         counter++;

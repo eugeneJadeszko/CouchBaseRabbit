@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+/**
+ * This class is for listen the rabbitmq queue
+ */
 @EnableRabbit
 @Service
 public class QueueListenerImpl implements QueueListener {
@@ -29,7 +32,7 @@ public class QueueListenerImpl implements QueueListener {
     }
 
     /**
-     * Convert input JSON string into SampleDocument object
+     * Convert input JSON string into Subscriber object
      *
      * @param messageFromQueue input JSON string from RabbitMQ queue
      */
