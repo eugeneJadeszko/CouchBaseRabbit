@@ -16,23 +16,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource(value="classpath:application.properties")
+@PropertySource(value = "classpath:application.properties")
 public class RabbitMqConfig {
 
 	@Value("${rabbitmq.host}")
 	private String hostName;
 
-	@Value("${rabbitmq.exchange:test}")
+	@Value("${rabbitmq.messagesExchange:test}")
 	private String exchange;
 
-	@Value("${rabbitmq.queue}")
-	private String queue;
-
-	@Value("${rabbitmq.routing_key}")
-	private String routingKey;
-
 	/**
-	 * Настройка соединения с RabbitMQ
+	 * Setting connection from RabbitMQ
 	 *
 	 * @return {@link ConnectionFactory}
 	 */
@@ -53,39 +47,8 @@ public class RabbitMqConfig {
 		return rabbitTemplate;
 	}
 
-	/**
-	 * Создание очереди "queue"
-	 *
-	 * @return {@link Queue}
-	 */
-	@Bean
-	public Queue Queue1() {
-		return new Queue(queue);
-	}
-
-	/**
-	 * Создание exchange типа direct
-	 *
-	 * @return {@link DirectExchange}
-	 */
-	@Bean
-	public DirectExchange directExchange() {
-		return new DirectExchange(exchange);
-	}
-
-	/**
-	 * Связывание очереди "query" с точкой доступа "exchange-direct" по ключу
-	 * "message"
-	 *
-	 * @return {@link Binding}
-	 */
-	@Bean
-	public Binding binding() {
-		return BindingBuilder.bind(Queue1()).to(directExchange()).with(routingKey);
-	}
-
-	@Bean(name="rabbitListenerContainerFactory")
-	public SimpleRabbitListenerContainerFactory listenerFactory(){
+	@Bean(name = "rabbitListenerContainerFactory")
+	public SimpleRabbitListenerContainerFactory listenerFactory() {
 		SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
 		factory.setConnectionFactory(connectionFactory());
 		return factory;
