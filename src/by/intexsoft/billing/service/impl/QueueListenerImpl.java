@@ -1,29 +1,33 @@
 package by.intexsoft.billing.service.impl;
 
-import by.intexsoft.billing.model.Subscriber;
-import by.intexsoft.billing.service.CouchBaseWriter;
-import by.intexsoft.billing.service.QueueListener;
-import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
+
+import by.intexsoft.billing.model.Subscriber;
+import by.intexsoft.billing.service.CouchBaseWriter;
+import by.intexsoft.billing.service.QueueListener;
 
 @EnableRabbit
 @Service
+@PropertySource(value="classpath:application.properties")
 public class QueueListenerImpl implements QueueListener {
     private final CouchBaseWriter couchBaseWriter;
     private final ObjectMapper mapper;
 
-    @Autowired
+	@Autowired
     public QueueListenerImpl(CouchBaseWriter couchBaseWriter) {
         this.couchBaseWriter = couchBaseWriter;
         mapper = new ObjectMapper();
     }
 
-    @RabbitListener(queues = "queue")
+    @RabbitListener(queues = "${rabbitmq.messagesQueue}")
     public void processQueue(String messageFromQueue) {
         convertAndSave(messageFromQueue);
     }
