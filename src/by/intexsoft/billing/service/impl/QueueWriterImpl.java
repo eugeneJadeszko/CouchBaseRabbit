@@ -12,9 +12,13 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+/**
+ * This class is for writing messages in RabbitMQ queue
+ */
 @Service("queueWriter")
 @PropertySource(value = "classpath:application.properties")
 public class QueueWriterImpl implements QueueWriter {
+
 	private final RabbitTemplate template;
 	private SubscriberBuilder subscriberBuilder;
 	private ObjectMapper mapper;
@@ -33,17 +37,16 @@ public class QueueWriterImpl implements QueueWriter {
 	}
 
 	/**
-	 * Write built unique object in RabbitMQ queue
+	 * Write built unique {@link Subscriber} object in RabbitMQ queue
 	 */
 	public void writeMessage() {
 		template.convertAndSend(convert(subscriberBuilder.build()));
 	}
 
 	/**
-	 * Convert input object into JSON string
+	 * Convert input {@link Subscriber} object into JSON string
 	 *
-	 * @param subscriber
-	 *            object model to convert in JSON and write in RabbitMQ queue
+	 * @param subscriber {@link Subscriber} object to convert in JSON string
 	 */
 	private String convert(Subscriber subscriber) {
 		String result = "";

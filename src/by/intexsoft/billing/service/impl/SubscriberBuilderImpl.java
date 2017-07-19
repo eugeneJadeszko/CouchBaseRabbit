@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 /**
- * This class will build Subscriber object with unique fields
+ * This class will build {@link Subscriber} object with unique fields
  */
 @Service
 public class SubscriberBuilderImpl implements SubscriberBuilder {
@@ -23,9 +23,9 @@ public class SubscriberBuilderImpl implements SubscriberBuilder {
     }
 
     /**
-     * Build unique Subscriber object
+     * Build unique {@link Subscriber} object
      *
-     * @return unique Subscriber object
+     * @return unique {@link Subscriber} object
      */
     public Subscriber build() {
         counter++;

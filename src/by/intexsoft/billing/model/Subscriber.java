@@ -7,7 +7,7 @@ import org.springframework.data.couchbase.core.mapping.id.GeneratedValue;
 import org.springframework.data.couchbase.core.mapping.id.GenerationStrategy;
 
 /**
- * Class describes model which we will write in couchbase
+ * Class describes subscriber which we will write in couchbase bucket
  */
 @Document
 public class Subscriber {
@@ -28,8 +28,19 @@ public class Subscriber {
     @Field
     public CallRecord callRecord;
 
+    /**
+     * Default constructor for {@link Subscriber}. Creates instance of {@link Subscriber} with default initialized fields
+     */
     public Subscriber(){}
 
+    /**
+     * Constructor for {@link Subscriber}. Creates instance of {@link Subscriber} with unique fields initialized with input parameters
+     * @param id unique id
+     * @param firstName unique first name of subscriber
+     * @param secondName unique second name of subscriber
+     * @param age unique age of subscriber
+     * @param callRecord unique call record based on {@link CallRecord} object
+     */
     public Subscriber(int id, String firstName, String secondName, int age, CallRecord callRecord) {
         this.id = id;
         this.firstName = firstName;
