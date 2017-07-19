@@ -36,7 +36,7 @@ public class QueueWriterImpl implements QueueWriter {
 	 * Write built unique object in RabbitMQ queue
 	 */
 	public void writeMessage() {
-		template.convertAndSend(convertObjectToJson(subscriberBuilder.build()));
+		template.convertAndSend(convert(subscriberBuilder.build()));
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class QueueWriterImpl implements QueueWriter {
 	 * @param subscriber
 	 *            object model to convert in JSON and write in RabbitMQ queue
 	 */
-	private String convertObjectToJson(Subscriber subscriber) {
+	private String convert(Subscriber subscriber) {
 		String result = "";
 		try {
 			result = mapper.writeValueAsString(subscriber);

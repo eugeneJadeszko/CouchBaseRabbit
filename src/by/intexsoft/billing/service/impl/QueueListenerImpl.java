@@ -36,7 +36,7 @@ public class QueueListenerImpl implements QueueListener {
     }
 
     /**
-     * Convert input JSON string into Subscriber object
+     * Convert input JSON string into Subscriber {@link by.intexsoft.billing.model.Subscriber} object
      *
      * @param messageFromQueue input JSON string from RabbitMQ queue
      */
