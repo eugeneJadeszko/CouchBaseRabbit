@@ -3,6 +3,7 @@ package by.intexsoft.billing.service.impl;
 import by.intexsoft.billing.model.Subscriber;
 import by.intexsoft.billing.service.QueueWriter;
 import by.intexsoft.billing.service.SubscriberBuilder;
+import com.couchbase.client.deps.com.fasterxml.jackson.core.JsonProcessingException;
 import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,22 +41,21 @@ public class QueueWriterImpl implements QueueWriter {
 	 * Write built unique {@link Subscriber} object in RabbitMQ queue
 	 */
 	public void writeMessage() {
-		template.convertAndSend(convert(subscriberBuilder.build()));
+		try {
+			template.convertAndSend(convert(subscriberBuilder.build()));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Convert input {@link Subscriber} object into JSON string
 	 *
 	 * @param subscriber {@link Subscriber} object to convert in JSON string
+	 *
+	 * @return converted JSON string
 	 */
-	private String convert(Subscriber subscriber) {
-		String result = "";
-		try {
-			result = mapper.writeValueAsString(subscriber);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return result;
+	private String convert(Subscriber subscriber) throws JsonProcessingException {
+		return mapper.writeValueAsString(subscriber);
 	}
 }
