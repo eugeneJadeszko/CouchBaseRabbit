@@ -5,7 +5,7 @@ import com.couchbase.client.java.repository.annotation.Id;
 import org.springframework.data.couchbase.core.mapping.Document;
 
 /**
- * Class describes call record
+ * Class describes call record which will write in Couchbase bucket
  */
 @Document
 public class CallRecord {
