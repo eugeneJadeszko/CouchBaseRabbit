@@ -14,10 +14,14 @@ import by.intexsoft.billing.model.Subscriber;
 import by.intexsoft.billing.service.CouchBaseWriter;
 import by.intexsoft.billing.service.QueueListener;
 
+/**
+ * This class is for listening the RabbitMQ queue
+ */
 @EnableRabbit
 @Service
 @PropertySource(value="classpath:application.properties")
 public class QueueListenerImpl implements QueueListener {
+
     private final CouchBaseWriter couchBaseWriter;
     private final ObjectMapper mapper;
 
@@ -27,13 +31,18 @@ public class QueueListenerImpl implements QueueListener {
         mapper = new ObjectMapper();
     }
 
+    /**
+     * Listen set queue and handle input messages
+     *
+     * @param messageFromQueue input string message in JSON format
+     */
     @RabbitListener(queues = "${rabbitmq.messagesQueue}")
     public void processQueue(String messageFromQueue) {
         convertAndSave(messageFromQueue);
     }
 
     /**
-     * Convert input JSON string into SampleDocument object
+     * Convert input JSON string into {@link Subscriber} object
      *
      * @param messageFromQueue input JSON string from RabbitMQ queue
      */
@@ -46,9 +55,9 @@ public class QueueListenerImpl implements QueueListener {
     }
 
     /**
-     * Save model in Couchbase bucket using "save" method from repository
+     * Save {@link Subscriber} object in Couchbase bucket using "save" method from {@link by.intexsoft.billing.repository.CouchbaseRepository}
      *
-     * @param subscriber Document to write in Couchbase bucket
+     * @param subscriber instance of {@link Subscriber} object to write in Couchbase bucket
      */
     private void save(Subscriber subscriber) {
         couchBaseWriter.write(subscriber);

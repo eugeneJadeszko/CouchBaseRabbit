@@ -3,6 +3,7 @@ package by.intexsoft.billing.service.impl;
 import by.intexsoft.billing.model.Subscriber;
 import by.intexsoft.billing.service.QueueWriter;
 import by.intexsoft.billing.service.SubscriberBuilder;
+import com.couchbase.client.deps.com.fasterxml.jackson.core.JsonProcessingException;
 import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
+/**
+ * This class is for writing messages in RabbitMQ queue
+ */
 @Service("queueWriter")
 @PropertySource(value = "classpath:application.properties")
 public class QueueWriterImpl implements QueueWriter {
+
 	private final RabbitTemplate template;
 	private SubscriberBuilder subscriberBuilder;
 	private ObjectMapper mapper;
@@ -33,25 +38,24 @@ public class QueueWriterImpl implements QueueWriter {
 	}
 
 	/**
-	 * Write built unique object in RabbitMQ queue
+	 * Write built unique {@link Subscriber} object in RabbitMQ queue
 	 */
 	public void writeMessage() {
-		convertObjectInJsonAndSave(subscriberBuilder.build());
+		try {
+			template.convertAndSend(convert(subscriberBuilder.build()));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
-	 * Convert input object into JSON string
+	 * Convert input {@link Subscriber} object into JSON string
 	 *
-	 * @param subscriber
-	 *            object model to convert in JSON and write in RabbitMQ queue
+	 * @param subscriber {@link Subscriber} object to convert in JSON string
+	 *
+	 * @return converted JSON string
 	 */
-	private void convertObjectInJsonAndSave(Subscriber subscriber) {
-		String JsonString;
-		try {
-			JsonString = mapper.writeValueAsString(subscriber);
-			template.convertAndSend(messagesExchange, messagesRoutingKey, JsonString);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	private String convert(Subscriber subscriber) throws JsonProcessingException {
+		return mapper.writeValueAsString(subscriber);
 	}
 }

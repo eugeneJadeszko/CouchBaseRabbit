@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 /**
- * This class will build CallRecord object with unique fields
+ * This class will build {@link CallRecord} object with unique fields
  */
 @Service
 public class CallRecordBuilderImpl implements CallRecordBuilder {
@@ -17,9 +17,9 @@ public class CallRecordBuilderImpl implements CallRecordBuilder {
     private boolean type = new Random().nextBoolean();
 
     /**
-     * Build unique CallRecord JSON string
+     * Build unique {@link CallRecord} object
      *
-     * @return unique CallRecord JSON string
+     * @return unique {@link CallRecord} object
      */
     public CallRecord build() {
         counter++;

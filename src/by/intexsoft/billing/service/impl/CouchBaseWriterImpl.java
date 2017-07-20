@@ -20,9 +20,9 @@ public class CouchBaseWriterImpl implements CouchBaseWriter {
     }
 
     /**
-     * Write input argument model in Couchbase bucket
+     * Write input {@link Subscriber} object in Couchbase bucket
      *
-     * @param subscriber model object
+     * @param subscriber {@link Subscriber} object
      */
     public void write(Subscriber subscriber) {
         couchbaseRepository.save(subscriber);

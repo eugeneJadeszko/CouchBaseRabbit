@@ -9,13 +9,12 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 
 /**
- * This class will build Subscriber object with unique fields
+ * This class will build {@link Subscriber} object with unique fields
  */
 @Service
 public class SubscriberBuilderImpl implements SubscriberBuilder {
 
     private static int counter = 5;
-    private String randomType = String.valueOf(new Random().nextInt(2));
     private CallRecordBuilder callRecordBuilder = new CallRecordBuilderImpl();
 
     @Autowired
@@ -24,12 +23,12 @@ public class SubscriberBuilderImpl implements SubscriberBuilder {
     }
 
     /**
-     * Build unique Subscriber JSON string
+     * Build unique {@link Subscriber} object
      *
-     * @return unique Subscriber JSON string
+     * @return unique {@link Subscriber} object
      */
     public Subscriber build() {
         counter++;
-        return new Subscriber(counter, randomType, "Ivan" + counter, "Ivanov" + counter, 4 + counter, callRecordBuilder.build());
+        return new Subscriber(counter, "Ivan" + counter, "Ivanov" + counter, 4 + counter, callRecordBuilder.build());
     }
 }
