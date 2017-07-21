@@ -11,16 +11,34 @@ import org.springframework.data.couchbase.core.mapping.Document;
 public class CallRecord {
 
     /**
-     * Unique {@link CallRecord#id} for {@link CallRecord} object
+     * Unique {@link CallRecord#callId} for {@link CallRecord} model
      */
     @Id
-    public int id;
+    public int callId;
 
     /**
-     * Call {@link CallRecord#duration} time which stored if milliseconds
+     * Unique {@link CallRecord#subscriberId} which refer on certain {@link Subscriber} in OracleDB
      */
     @Field
-    public int duration;
+    public int subscriberId;
+
+    /**
+     * {@link CallRecord#startTime} of certain call which stored in milliseconds
+     */
+    @Field
+    public long startTime;
+
+    /**
+     * {@link CallRecord#endTime} of certain call which stored in milliseconds
+     */
+    @Field
+    public long endTime;
+
+    /**
+     * Call {@link CallRecord#duration} time of single call which stored if milliseconds
+     */
+    @Field
+    public long duration;
 
     /**
      * Call {@link CallRecord#type}. {@link CallRecord#type} can be "true" or "false". If "true" -- local call, else -- regional
@@ -29,19 +47,34 @@ public class CallRecord {
     public boolean type;
 
     /**
+     * {@link CallRecord#price} of single call
+     */
+    @Field
+    public double price;
+
+    /**
      * Default constructor for {@link CallRecord}. Creates instance of {@link CallRecord} with default initialized fields
      */
     public CallRecord() {}
 
     /**
-     * Constructor for {@link CallRecord}. Creates instance of {@link CallRecord} with unique fields initialized with input parameters
-     * @param id unique {@link CallRecord#id}
-     * @param duration unique call {@link CallRecord#duration} set in milliseconds
-     * @param type call {@link CallRecord#type}. {@link CallRecord#type} can be "true" or "false". If "true" -- local call, else -- regional
+     * Constructor for {@link CallRecord}. Creates instance of {@link CallRecord} with fields initialized with input parameters
+     *
+     * @param callId unique {@link CallRecord#callId} for {@link CallRecord} model
+     * @param subscriberId unique {@link CallRecord#subscriberId} which refer on certain {@link Subscriber} in OracleDB
+     * @param startTime {@link CallRecord#endTime} of certain call which stored in milliseconds
+     * @param endTime {@link CallRecord#endTime} of certain call which stored in milliseconds
+     * @param duration call {@link CallRecord#duration} time of single call which stored if milliseconds
+     * @param type Call {@link CallRecord#type}. {@link CallRecord#type} can be "true" or "false". If "true" -- local call, else -- regional
+     * @param price {@link CallRecord#price} of single call
      */
-    public CallRecord(int id, int duration, boolean type) {
-        this.id = id;
+    public CallRecord(int callId, int subscriberId, long startTime, long endTime, long duration, boolean type, double price) {
+        this.callId = callId;
+        this.subscriberId = subscriberId;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.duration = duration;
         this.type = type;
+        this.price = price;
     }
 }
