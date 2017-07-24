@@ -18,13 +18,13 @@ public interface CallRecordService {
      *
      * @return {@link CallRecord} object
      */
-    List<CallRecord> findBySubscriberId(int subscriberId);
+    List<CallRecord> findAllBySubscriberId(int subscriberId);
 
     /**
-     * Find node by {@link CallRecord#subscriberId} and return {@link CallRecord} object
+     * Find node by {@link CallRecord#callId} and return {@link CallRecord} object
      *
-     * @param subscriberId unique {@link CallRecord#subscriberId} which wire with certain call record
+     * @param callId unique {@link CallRecord#callId}
      * @return {@link CallRecord} object
      */
-    CallRecord findOne(String subscriberId);
+    CallRecord findOne(String callId);
 }

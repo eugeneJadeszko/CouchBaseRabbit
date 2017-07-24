@@ -27,12 +27,12 @@ public class CallRecordServiceImpl implements CallRecordService {
     }
 
     @Override
-    public List<CallRecord> findBySubscriberId(int subscriberId) {
+    public List<CallRecord> findAllBySubscriberId(int subscriberId) {
         return couchbaseRepository.findBySubscriberId(subscriberId);
     }
 
     @Override
-    public CallRecord findOne(String subscriberId) {
-        return couchbaseRepository.findOne(subscriberId);
+    public CallRecord findOne(String callId) {
+        return couchbaseRepository.findOne(callId);
     }
 }
