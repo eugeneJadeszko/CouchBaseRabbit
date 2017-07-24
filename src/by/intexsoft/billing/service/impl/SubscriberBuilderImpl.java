@@ -1,9 +1,8 @@
 package by.intexsoft.billing.service.impl;
 
-import org.springframework.stereotype.Service;
-
 import by.intexsoft.billing.model.Subscriber;
 import by.intexsoft.billing.service.SubscriberBuilder;
+import org.springframework.stereotype.Service;
 
 /**
  * This class will build {@link Subscriber} object with unique fields

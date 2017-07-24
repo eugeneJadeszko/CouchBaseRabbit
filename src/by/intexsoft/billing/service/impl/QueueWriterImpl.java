@@ -1,10 +1,8 @@
 package by.intexsoft.billing.service.impl;
 
 import by.intexsoft.billing.model.CallRecord;
-import by.intexsoft.billing.model.Subscriber;
 import by.intexsoft.billing.service.CallRecordBuilder;
 import by.intexsoft.billing.service.QueueWriter;
-import by.intexsoft.billing.service.SubscriberBuilder;
 import com.couchbase.client.deps.com.fasterxml.jackson.core.JsonProcessingException;
 import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,7 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is for writing messages in RabbitMQ queue
@@ -21,6 +20,8 @@ import java.io.IOException;
 @Service("queueWriter")
 @PropertySource(value = "classpath:application.properties")
 public class QueueWriterImpl implements QueueWriter {
+
+	List<CallRecord> callRecords = new ArrayList<>();
 
 	private final RabbitTemplate template;
 	private CallRecordBuilder callRecordBuilder;

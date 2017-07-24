@@ -1,8 +1,7 @@
 package by.intexsoft.billing.service.impl;
 
 import by.intexsoft.billing.model.CallRecord;
-import by.intexsoft.billing.model.Subscriber;
-import by.intexsoft.billing.service.CouchBaseWriter;
+import by.intexsoft.billing.service.CouchBaseService;
 import by.intexsoft.billing.service.QueueListener;
 import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -21,12 +20,12 @@ import java.io.IOException;
 @PropertySource(value="classpath:application.properties")
 public class QueueListenerImpl implements QueueListener {
 
-    private final CouchBaseWriter couchBaseWriter;
+    private final CouchBaseService couchBaseService;
     private final ObjectMapper mapper;
 
 	@Autowired
-    public QueueListenerImpl(CouchBaseWriter couchBaseWriter) {
-        this.couchBaseWriter = couchBaseWriter;
+    public QueueListenerImpl(CouchBaseService couchBaseService) {
+        this.couchBaseService = couchBaseService;
         mapper = new ObjectMapper();
     }
 
@@ -59,6 +58,6 @@ public class QueueListenerImpl implements QueueListener {
      * @param callRecord instance of {@link CallRecord} object to write in Couchbase bucket
      */
     private void save(CallRecord callRecord) {
-        couchBaseWriter.write(callRecord);
+        couchBaseService.write(callRecord);
     }
 }

@@ -15,7 +15,7 @@ public interface Calculator {
 	 * 
 	 * @return duration of the call in milliseconds
 	 */
-	long calculateDuractionCall(long startTime, long endTime);
+	long calculateCallDuration(long startTime, long endTime);
 
 	/**
 	 * The method calculates the payBill of one call
@@ -35,5 +35,5 @@ public interface Calculator {
 	 *            - Collection of objects CallRecord
 	 * @return the payBill for the month
 	 */
-	double calculateSummPriceCalls(List<CallRecord> list);
+	double calculateSumPriceCalls(List<CallRecord> list);
 }

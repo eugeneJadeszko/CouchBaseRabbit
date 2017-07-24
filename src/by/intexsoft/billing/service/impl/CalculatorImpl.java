@@ -1,13 +1,12 @@
 package by.intexsoft.billing.service.impl;
 
-import java.util.List;
-
+import by.intexsoft.billing.model.CallRecord;
+import by.intexsoft.billing.service.Calculator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import by.intexsoft.billing.model.CallRecord;
-import by.intexsoft.billing.service.Calculator;
+import java.util.List;
 
 /**
  * This class is designed to calculate call data
@@ -24,7 +23,7 @@ public class CalculatorImpl implements Calculator {
 	private double rateExternal;
 
 	@Override
-	public long calculateDuractionCall(long startTime, long endTime) {
+	public long calculateCallDuration(long startTime, long endTime) {
 		return endTime - startTime;
 	}
 
@@ -34,7 +33,7 @@ public class CalculatorImpl implements Calculator {
 	}
 
 	@Override
-	public double calculateSummPriceCalls(List<CallRecord> list) {
+	public double calculateSumPriceCalls(List<CallRecord> list) {
 		payBill = 0;
 		list.forEach((CallRecord count) -> payBill += count.price);
 		return payBill;
