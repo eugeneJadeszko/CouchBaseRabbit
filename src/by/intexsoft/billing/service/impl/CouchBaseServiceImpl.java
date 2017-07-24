@@ -2,29 +2,32 @@ package by.intexsoft.billing.service.impl;
 
 import by.intexsoft.billing.model.CallRecord;
 import by.intexsoft.billing.repository.CouchbaseRepository;
-import by.intexsoft.billing.service.CouchBaseWriter;
+import by.intexsoft.billing.service.CouchBaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * This class is for writing models in Couchbase buckets
  */
 @Service
-public class CouchBaseWriterImpl implements CouchBaseWriter {
+public class CouchBaseServiceImpl implements CouchBaseService {
 
     private final CouchbaseRepository couchbaseRepository;
 
     @Autowired
-    public CouchBaseWriterImpl(CouchbaseRepository couchbaseRepository) {
+    public CouchBaseServiceImpl(CouchbaseRepository couchbaseRepository) {
         this.couchbaseRepository = couchbaseRepository;
     }
 
-    /**
-     * Write input {@link CallRecord} object in Couchbase bucket
-     *
-     * @param callRecord {@link CallRecord} object
-     */
+    @Override
     public void write(CallRecord callRecord) {
         couchbaseRepository.save(callRecord);
+    }
+
+    @Override
+    public List<CallRecord> read(int subscriberId) {
+        return couchbaseRepository.findBySubscriberId(subscriberId);
     }
 }
