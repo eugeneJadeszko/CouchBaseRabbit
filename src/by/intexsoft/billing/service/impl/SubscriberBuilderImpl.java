@@ -12,11 +12,7 @@ public class SubscriberBuilderImpl implements SubscriberBuilder {
 
     private static int counter = 5;
 
-    /**
-     * Build unique {@link Subscriber} object
-     *
-     * @return unique {@link Subscriber} object
-     */
+    @Override
     public Subscriber build() {
         counter++;
         return new Subscriber(counter, "Ivan" + counter, "Ivanov" + counter, 0);

@@ -2,7 +2,7 @@ package by.intexsoft.billing.service.impl;
 
 import by.intexsoft.billing.model.CallRecord;
 import by.intexsoft.billing.repository.CouchbaseRepository;
-import by.intexsoft.billing.service.CouchBaseService;
+import by.intexsoft.billing.service.CallRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +12,12 @@ import java.util.List;
  * This class is for writing models in Couchbase buckets
  */
 @Service
-public class CouchBaseServiceImpl implements CouchBaseService {
+public class CallRecordServiceImpl implements CallRecordService {
 
     private final CouchbaseRepository couchbaseRepository;
 
     @Autowired
-    public CouchBaseServiceImpl(CouchbaseRepository couchbaseRepository) {
+    public CallRecordServiceImpl(CouchbaseRepository couchbaseRepository) {
         this.couchbaseRepository = couchbaseRepository;
     }
 
@@ -27,7 +27,12 @@ public class CouchBaseServiceImpl implements CouchBaseService {
     }
 
     @Override
-    public List<CallRecord> read(int subscriberId) {
+    public List<CallRecord> findAllBySubscriberId(int subscriberId) {
         return couchbaseRepository.findBySubscriberId(subscriberId);
+    }
+
+    @Override
+    public CallRecord findOne(String callId) {
+        return couchbaseRepository.findOne(callId);
     }
 }

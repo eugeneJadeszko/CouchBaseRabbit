@@ -14,7 +14,7 @@ public class CallRecord {
      * Unique {@link CallRecord#callId} for {@link CallRecord} model
      */
     @Id
-    public int callId;
+    public String callId;
 
     /**
      * Unique {@link CallRecord#subscriberId} which refer on certain {@link Subscriber} in OracleDB
@@ -68,7 +68,7 @@ public class CallRecord {
      * @param type Call {@link CallRecord#type}. {@link CallRecord#type} can be "true" or "false". If "true" -- local call, else -- regional
      * @param price {@link CallRecord#price} of single call
      */
-    public CallRecord(int callId, int subscriberId, long startTime, long endTime, long duration, boolean type, double price) {
+    public CallRecord(String callId, int subscriberId, long startTime, long endTime, long duration, boolean type, double price) {
         this.callId = callId;
         this.subscriberId = subscriberId;
         this.startTime = startTime;
