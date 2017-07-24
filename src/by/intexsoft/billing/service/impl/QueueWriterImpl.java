@@ -44,6 +44,11 @@ public class QueueWriterImpl implements QueueWriter {
 		}
 	}
 
+	@Override
+	public void writeReport(String report) {
+
+	}
+
 	/**
 	 * Convert input {@link CallRecord} object into JSON string
 	 *

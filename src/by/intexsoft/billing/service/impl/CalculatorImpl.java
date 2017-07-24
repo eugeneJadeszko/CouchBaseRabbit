@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 /**
@@ -16,11 +17,11 @@ import java.util.List;
 public class CalculatorImpl implements Calculator {
 	private double payBill = 0;
 
-	@Value("${call.internal:0.01}")
-	private double rateInternal;
+	@Value("${call.internal}")
+	private Double rateInternal;
 
-	@Value("${call.external:0.04}")
-	private double rateExternal;
+	@Value("${call.external}")
+	private Double rateExternal;
 
 	@Override
 	public long calculateCallDuration(long startTime, long endTime) {
@@ -28,8 +29,8 @@ public class CalculatorImpl implements Calculator {
 	}
 
 	@Override
-	public double calculatePriceSingleCall(boolean type, long duraction) {
-		return duraction / 1000 * (type ? rateInternal : rateExternal);
+	public double calculatePriceSingleCall(boolean type, long duration) {
+		return duration / 1000 * (type ? rateInternal : rateExternal);
 	}
 
 	@Override
