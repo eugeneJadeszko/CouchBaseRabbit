@@ -30,7 +30,7 @@ public class GeneratorImpl implements Generator {
 
     @Override
     public List<Subscriber> generateSubscribers(int quantity) {
-        for (int i = 0; i < quantity; i++) {
+        for (int subscriber = 0; subscriber < quantity; subscriber++) {
             subscribers.add(subscriberBuilder.build());
         }
         return subscribers;
