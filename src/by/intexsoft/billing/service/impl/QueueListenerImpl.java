@@ -1,18 +1,17 @@
 package by.intexsoft.billing.service.impl;
 
-import java.io.IOException;
-
+import by.intexsoft.billing.model.CallRecord;
+import by.intexsoft.billing.model.Subscriber;
+import by.intexsoft.billing.service.CouchBaseWriter;
+import by.intexsoft.billing.service.QueueListener;
+import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
-
-import by.intexsoft.billing.model.Subscriber;
-import by.intexsoft.billing.service.CouchBaseWriter;
-import by.intexsoft.billing.service.QueueListener;
+import java.io.IOException;
 
 /**
  * This class is for listening the RabbitMQ queue
@@ -42,24 +41,24 @@ public class QueueListenerImpl implements QueueListener {
     }
 
     /**
-     * Convert input JSON string into {@link Subscriber} object
+     * Convert input JSON string into {@link CallRecord} object
      *
      * @param messageFromQueue input JSON string from RabbitMQ queue
      */
     private void convertAndSave(String messageFromQueue) {
         try {
-            save(mapper.readValue(messageFromQueue, Subscriber.class));
+            save(mapper.readValue(messageFromQueue, CallRecord.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Save {@link Subscriber} object in Couchbase bucket using "save" method from {@link by.intexsoft.billing.repository.CouchbaseRepository}
+     * Save {@link CallRecord} object in Couchbase bucket using "save" method from {@link by.intexsoft.billing.repository.CouchbaseRepository}
      *
-     * @param subscriber instance of {@link Subscriber} object to write in Couchbase bucket
+     * @param callRecord instance of {@link CallRecord} object to write in Couchbase bucket
      */
-    private void save(Subscriber subscriber) {
-        couchBaseWriter.write(subscriber);
+    private void save(CallRecord callRecord) {
+        couchBaseWriter.write(callRecord);
     }
 }

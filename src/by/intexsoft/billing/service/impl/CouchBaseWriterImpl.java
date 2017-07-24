@@ -1,6 +1,6 @@
 package by.intexsoft.billing.service.impl;
 
-import by.intexsoft.billing.model.Subscriber;
+import by.intexsoft.billing.model.CallRecord;
 import by.intexsoft.billing.repository.CouchbaseRepository;
 import by.intexsoft.billing.service.CouchBaseWriter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,11 @@ public class CouchBaseWriterImpl implements CouchBaseWriter {
     }
 
     /**
-     * Write input {@link Subscriber} object in Couchbase bucket
+     * Write input {@link CallRecord} object in Couchbase bucket
      *
-     * @param subscriber {@link Subscriber} object
+     * @param callRecord {@link CallRecord} object
      */
-    public void write(Subscriber subscriber) {
-        couchbaseRepository.save(subscriber);
+    public void write(CallRecord callRecord) {
+        couchbaseRepository.save(callRecord);
     }
 }

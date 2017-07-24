@@ -1,6 +1,8 @@
 package by.intexsoft.billing.service.impl;
 
+import by.intexsoft.billing.model.CallRecord;
 import by.intexsoft.billing.model.Subscriber;
+import by.intexsoft.billing.service.CallRecordBuilder;
 import by.intexsoft.billing.service.QueueWriter;
 import by.intexsoft.billing.service.SubscriberBuilder;
 import com.couchbase.client.deps.com.fasterxml.jackson.core.JsonProcessingException;
@@ -21,7 +23,7 @@ import java.io.IOException;
 public class QueueWriterImpl implements QueueWriter {
 
 	private final RabbitTemplate template;
-	private SubscriberBuilder subscriberBuilder;
+	private CallRecordBuilder callRecordBuilder;
 	private ObjectMapper mapper;
 
 	@Value("${rabbitmq.messagesExchange:test}")
@@ -31,31 +33,31 @@ public class QueueWriterImpl implements QueueWriter {
 	private String messagesRoutingKey;
 
 	@Autowired
-	public QueueWriterImpl(RabbitTemplate template, SubscriberBuilder subscriberBuilder) {
+	public QueueWriterImpl(RabbitTemplate template, CallRecordBuilder callRecordBuilder) {
 		this.template = template;
-		this.subscriberBuilder = subscriberBuilder;
+		this.callRecordBuilder = callRecordBuilder;
 		mapper = new ObjectMapper();
 	}
 
 	/**
-	 * Write built unique {@link Subscriber} object in RabbitMQ queue
+	 * Write built unique {@link CallRecord} object in RabbitMQ queue
 	 */
 	public void writeMessage() {
 		try {
-			template.convertAndSend(convert(subscriberBuilder.build()));
+			template.convertAndSend(messagesRoutingKey, convert(callRecordBuilder.build()));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Convert input {@link Subscriber} object into JSON string
+	 * Convert input {@link CallRecord} object into JSON string
 	 *
-	 * @param subscriber {@link Subscriber} object to convert in JSON string
+	 * @param callRecord {@link CallRecord} object to convert in JSON string
 	 *
 	 * @return converted JSON string
 	 */
-	private String convert(Subscriber subscriber) throws JsonProcessingException {
-		return mapper.writeValueAsString(subscriber);
+	private String convert(CallRecord callRecord) throws JsonProcessingException {
+		return mapper.writeValueAsString(callRecord);
 	}
 }

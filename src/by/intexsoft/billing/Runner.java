@@ -10,9 +10,6 @@ public class Runner
     {
         ApplicationContext context = new AnnotationConfigApplicationContext("by.intexsoft.billing.config");
         QueueWriter queueWriter = (QueueWriter) context.getBean("queueWriter");
-
-        for (int i = 0; i < 5; i++) {
-            queueWriter.writeMessage();
-        }
+        queueWriter.writeMessage();
     }
 }
