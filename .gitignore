@@ -6,3 +6,6 @@
 /CouchBaseRabbit.iml
 .settings/
 /bin/
+/test-output
+.build.bat
+.start.bat
