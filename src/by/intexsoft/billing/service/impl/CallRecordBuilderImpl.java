@@ -26,10 +26,10 @@ public class CallRecordBuilderImpl implements CallRecordBuilder {
     @Autowired
     public CallRecordBuilderImpl(CalculatorImpl calculator) {
         this.calculator = calculator;
-        price = calculator.calculatePriceSingleCall(type, duration);
         duration = new Random().nextInt(1000000);
         type = new Random().nextBoolean();
         subscriberId = new Random().nextInt(21);
+        price = calculator.calculatePriceSingleCall(type, duration);
         startTime = System.currentTimeMillis();
         endTime = startTime + duration;
     }
