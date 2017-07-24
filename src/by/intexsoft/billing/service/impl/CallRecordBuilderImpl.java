@@ -23,7 +23,6 @@ public class CallRecordBuilderImpl implements CallRecordBuilder {
     private long endTime;
     private double price;
 
-
     @Autowired
     public CallRecordBuilderImpl(CalculatorImpl calculator) {
         this.calculator = calculator;
@@ -35,13 +34,9 @@ public class CallRecordBuilderImpl implements CallRecordBuilder {
         endTime = startTime + duration;
     }
 
-    /**
-     * Build unique {@link CallRecord} object
-     *
-     * @return unique {@link CallRecord} object
-     */
+    @Override
     public CallRecord build() {
         counter++;
-        return new CallRecord(counter, subscriberId, startTime, endTime, duration, type, price);
+        return new CallRecord(String.valueOf(counter), subscriberId, startTime, endTime, duration, type, price);
     }
 }

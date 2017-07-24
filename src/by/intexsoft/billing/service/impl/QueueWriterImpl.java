@@ -11,17 +11,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This class is for writing messages in RabbitMQ queue
  */
 @Service("queueWriter")
 @PropertySource(value = "classpath:application.properties")
 public class QueueWriterImpl implements QueueWriter {
-
-	List<CallRecord> callRecords = new ArrayList<>();
 
 	private final RabbitTemplate template;
 	private CallRecordBuilder callRecordBuilder;
@@ -40,9 +35,7 @@ public class QueueWriterImpl implements QueueWriter {
 		mapper = new ObjectMapper();
 	}
 
-	/**
-	 * Write built unique {@link CallRecord} object in RabbitMQ queue
-	 */
+	@Override
 	public void writeMessage() {
 		try {
 			template.convertAndSend(messagesRoutingKey, convert(callRecordBuilder.build()));
