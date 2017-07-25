@@ -5,12 +5,9 @@ import by.intexsoft.billing.service.Calculator;
 import by.intexsoft.billing.service.CallRecordService;
 import by.intexsoft.billing.service.QueueWriter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
-@EnableScheduling
 public class AnalysisImpl implements Analysis {
 
     private QueueWriter queueWriter;
@@ -25,7 +22,6 @@ public class AnalysisImpl implements Analysis {
     }
 
     @Override
-    @Scheduled
     public void analyseAndReport() {
 
     }
