@@ -16,6 +16,11 @@ import by.intexsoft.billing.model.CallRecord;
 import by.intexsoft.billing.service.impl.CallRecordBuilderImpl;
 import by.intexsoft.billing.service.impl.CallRecordServiceImpl;
 
+/**
+ * This class tests the application as a whole. An object is created, parsed in
+ * JSON, sent to the exchange RabbitMQ, then gets into CoachBase, extracted and
+ * compared with the original
+ */
 public class TestBilling {
 	ApplicationContext context = new AnnotationConfigApplicationContext("by.intexsoft.billing.config");
 	private CallRecordBuilderImpl builder = context.getBean(CallRecordBuilderImpl.class);
