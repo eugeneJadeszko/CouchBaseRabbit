@@ -14,9 +14,6 @@ public interface FileManager {
 
 	/**
 	 * Method send files into queue and move it
-	 * 
-	 * @param dirPath
-	 *            - path to directory with files
 	 */
-	void SendAndMove(String dirPath);
+	void SendAndMove();
 }

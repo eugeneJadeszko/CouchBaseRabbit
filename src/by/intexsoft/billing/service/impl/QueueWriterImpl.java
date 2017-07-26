@@ -1,7 +1,6 @@
 package by.intexsoft.billing.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,6 @@ import by.intexsoft.billing.service.QueueWriter;
  * This class is for writing messages in RabbitMQ queue
  */
 @Service("queueWriter")
-@PropertySource(value = "classpath:application.properties")
 @EnableScheduling
 public class QueueWriterImpl implements QueueWriter {
 
@@ -23,7 +21,7 @@ public class QueueWriterImpl implements QueueWriter {
 	@Scheduled(fixedRate = 5000)
 	@Override
 	public void writeMessage() {
-		fileManager.SendAndMove("D:\\work\\dir1");
+		fileManager.SendAndMove();
 	}
 
 	@Override

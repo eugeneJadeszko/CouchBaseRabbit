@@ -21,6 +21,15 @@ public class FileManagerImpl implements FileManager {
 	@Value("${rabbitmq.messagesRoutingKey}")
 	private String messagesRoutingKey;
 
+	@Value("${directory.incoming}")
+	private String incomingDir;
+
+	@Value("${directory.read}")
+	private String readDir;
+
+	@Value("${files.quantity}")
+	private int quantityMessage;
+
 	@Autowired
 	private RabbitTemplate template;
 
@@ -34,13 +43,13 @@ public class FileManagerImpl implements FileManager {
 	}
 
 	@Override
-	public void SendAndMove(String dirPath) {
+	public void SendAndMove() {
 		int counter = 0;
-		for (File item : getFiles(dirPath)) {
+		for (File item : getFiles(incomingDir)) {
 			template.convertAndSend(messagesExchange, messagesRoutingKey,
 					utility.read(item.getParent(), item.getName()));
-			utility.move(item.getParent(), item.getName(), "D:\\work\\dir2");
-			if (counter > 5)
+			utility.move(item.getParent(), item.getName(), readDir);
+			if (counter > quantityMessage)
 				break;
 			counter++;
 		}
