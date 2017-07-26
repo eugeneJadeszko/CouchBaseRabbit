@@ -3,12 +3,17 @@ package by.intexsoft.billing.service.impl;
 import by.intexsoft.billing.model.CallRecord;
 import by.intexsoft.billing.service.CallRecordBuilder;
 import by.intexsoft.billing.service.QueueWriter;
+import by.intexsoft.billing.util.Utility;
+import by.intexsoft.billing.util.impl.FileUtilityImpl;
+
 import com.couchbase.client.deps.com.fasterxml.jackson.core.JsonProcessingException;
 import com.couchbase.client.deps.com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Service;
  */
 @Service("queueWriter")
 @PropertySource(value = "classpath:application.properties")
+@EnableScheduling
 public class QueueWriterImpl implements QueueWriter {
 
 	private final RabbitTemplate template;
@@ -35,10 +41,11 @@ public class QueueWriterImpl implements QueueWriter {
 		mapper = new ObjectMapper();
 	}
 
+	@Scheduled(fixedRate = 5000)
 	@Override
 	public void writeMessage() {
 		try {
-			template.convertAndSend(messagesRoutingKey, convert(callRecordBuilder.build()));
+			template.convertAndSend(messagesExchange, messagesRoutingKey, convert(callRecordBuilder.build()));
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -52,7 +59,8 @@ public class QueueWriterImpl implements QueueWriter {
 	/**
 	 * Convert input {@link CallRecord} object into JSON string
 	 *
-	 * @param callRecord {@link CallRecord} object to convert in JSON string
+	 * @param callRecord
+	 *            {@link CallRecord} object to convert in JSON string
 	 *
 	 * @return converted JSON string
 	 */
