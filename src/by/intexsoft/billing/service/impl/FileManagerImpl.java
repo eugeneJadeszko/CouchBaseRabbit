@@ -12,6 +12,10 @@ import by.intexsoft.billing.service.FileManager;
 import by.intexsoft.billing.util.Utility;
 import by.intexsoft.billing.util.impl.FileUtilityImpl;
 
+/**
+ * This class works with files. Reads messages from files in one directory,
+ * sends them to the queue and moves them to the directory of read messages.
+ */
 @Service
 @PropertySource(value = "classpath:application.properties")
 public class FileManagerImpl implements FileManager {
@@ -54,5 +58,4 @@ public class FileManagerImpl implements FileManager {
 			counter++;
 		}
 	}
-
 }
