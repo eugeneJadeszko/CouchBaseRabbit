@@ -77,4 +77,30 @@ public class CallRecord {
         this.type = type;
         this.price = price;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null)
+            return false;
+        if (getClass() != o.getClass())
+            return false;
+        CallRecord other = (CallRecord) o;
+        if (callId != other.callId)
+            return false;
+        if (subscriberId != other.subscriberId)
+            return false;
+        if (duration != other.duration)
+            return false;
+        if (endTime != other.endTime)
+            return false;
+        if (startTime != other.startTime)
+            return false;
+        if (type != other.type)
+            return false;
+        if (price != other.price)
+            return false;
+        return true;
+    }
 }

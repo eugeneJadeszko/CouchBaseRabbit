@@ -38,12 +38,6 @@ public class TestBilling {
 	public void checkDocInCouchBase() throws InterruptedException {
 		Thread.sleep(100);
 		CallRecord rezultRecord = service.findOne(buildRecord.callId);
-		assertEquals(rezultRecord.callId, buildRecord.callId);
-		assertEquals(rezultRecord.subscriberId, buildRecord.subscriberId);
-		assertEquals(rezultRecord.duration, buildRecord.duration);
-		assertEquals(rezultRecord.endTime, buildRecord.endTime);
-		assertEquals(rezultRecord.startTime, buildRecord.startTime);
-		assertEquals(rezultRecord.type, buildRecord.type);
-		assertEquals(rezultRecord.price, buildRecord.price, 0.0);
+		assertEquals(rezultRecord, buildRecord);
 	}
 }
