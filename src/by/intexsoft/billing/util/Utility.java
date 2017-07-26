@@ -1,5 +1,7 @@
 package by.intexsoft.billing.util;
 
+import java.io.File;
+
 public interface Utility {
 	/**
 	 * Write to file (create file, if file not exist)
