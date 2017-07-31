@@ -6,9 +6,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import by.intexsoft.billing.util.Utility;
 
 public class FileUtilityImpl implements Utility {
+	private ObjectMapper mapper = new ObjectMapper();
 
 	@Override
 	public void write(String dirPath, String fileName, String text, boolean append) {
@@ -40,7 +44,7 @@ public class FileUtilityImpl implements Utility {
 				sb.append("\n");
 			}
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			System.out.println("i/o exception");
 		}
 		return sb.toString();
 	}
@@ -62,6 +66,16 @@ public class FileUtilityImpl implements Utility {
 		} else
 			return false;
 		if (!delete(sourcePath, fileName)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean isValidJSON(File file) throws IOException {
+		try {
+			mapper.readTree(file);
+		} catch (JsonProcessingException e) {
 			return false;
 		}
 		return true;

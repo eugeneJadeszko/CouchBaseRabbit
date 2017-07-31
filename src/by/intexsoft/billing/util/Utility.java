@@ -1,5 +1,8 @@
 package by.intexsoft.billing.util;
 
+import java.io.File;
+import java.io.IOException;
+
 public interface Utility {
 	/**
 	 * Write to file (create file, if file not exist)
@@ -11,8 +14,8 @@ public interface Utility {
 	 * @param text
 	 *            - text for write
 	 * @param append
-	 *            - This parameter specifies whether to overwrite the file
-	 *            (false) or to add (true)
+	 *            - This parameter specifies whether to overwrite the file (false)
+	 *            or to add (true)
 	 */
 	void write(String dirPath, String fileName, String text, boolean append);
 
@@ -50,4 +53,13 @@ public interface Utility {
 	 * @return true - if success, false - if failed
 	 */
 	boolean move(String sourcePath, String fileName, String targetPath);
+
+	/**
+	 * Method checks the validity of the file
+	 * 
+	 * @param file
+	 *            - input file
+	 * @return - true - the file is valid, false - the file is not valid
+	 */
+	public boolean isValidJSON(File file) throws IOException;
 }
